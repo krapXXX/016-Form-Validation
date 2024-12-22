@@ -65,7 +65,22 @@
 
 
     <script>
-        const form = document.forms[0];
+
+          /*
+        Задание:
+        Доработайте валидацию формы. Поле ввода Email не должно содержать значения
+        admin@example.com, superuser@example.com и user@example.com
+        Во время ввода значений в поле ввода email выполняйте проверку введенного значения и если
+        значение совпадает с запрещенным, выводите сообщение об этом рядом с полем ввода.
+        Проверку выполняйте на событие input
+        */
+
+
+        let form = document.forms[0];
+        let emailInput = form.emailInput;
+        let emailError = document.querySelector("#emailError");
+
+        const restrictedEmails = ["admin@example.com", "superuser@example.com", "user@example.com"];
 
         form.addEventListener("submit", function (e) {
             alert("Форма отправлена");
@@ -82,34 +97,24 @@
             }
         });
 
-        onst emailError = document.querySelector("#emailError");
+        emailInput.addEventListener("input", function () {
+        let emailValue = emailInput.value;
+        let isRestricted = false;
 
-const restrictedEmails = ["admin@example.com", "superuser@example.com", "user@example.com"];
+        for (let i = 0; i < restrictedEmails.length; i++) {
+            if (emailValue === restrictedEmails[i]) {
+                isRestricted = true;
+                break;
+            }
+        }
 
-emailInput.addEventListener("input", function () {
-    const emailValue = emailInput.value;
-    if (restrictedEmails.includes(emailValue)) {
-        emailInput.setCustomValidity("This email is restricted.");
-        emailError.textContent = "This email is restricted.";
-    } else {
-        emailInput.setCustomValidity("");
-        emailError.textContent = "";
-    }
-});
+        if (isRestricted) {
+            emailInput.setCustomValidity("Этот email ограничен.");
+        } else {
+            emailInput.setCustomValidity("");
+        }
+    });
    
-
-        /*
-        Задание:
-        Доработайте валидацию формы. Поле ввода Email не должно содержать значения
-        admin@example.com, superuser@example.com и user@example.com
-        Во время ввода значений в поле ввода email выполняйте проверку введенного значения и если
-        значение совпадает с запрещенным, выводите сообщение об этом рядом с полем ввода.
-        Проверку выполняйте на событие input
-        */
-
-
-
-
     </script>
 </body>
 
